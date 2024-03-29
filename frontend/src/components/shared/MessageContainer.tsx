@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Chat from "./Chat";
+import useSendMessage from "@/hooks/useSendMessage";
 
 
 
@@ -20,13 +21,17 @@ export default function MessageContainer({ user }: { user: { name: string, avata
   ]);
   const [newMessage, setNewMessage] = useState('');
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return; // Prevent sending empty messages
 
-    // Add the new message to the messages state
+  const handleMessage = useSendMessage(newMessage, user.name);
+
+
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === '') return;
+
     setMessages(prevMessages => [...prevMessages, { message: newMessage, mine: true }]);
 
-    // Clear the input field after sending the message
+    await handleMessage();
+
     setNewMessage('');
   };
 
@@ -59,7 +64,7 @@ export default function MessageContainer({ user }: { user: { name: string, avata
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
-          <Button className="text-sm rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 font-semibold" onClick={handleSendMessage}>Send</Button>
+          <Button className="text-sm rounded-full px-8 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 font-semibold" onClick={handleSendMessage}>Send</Button>
         </div>
       </div>
     </main>

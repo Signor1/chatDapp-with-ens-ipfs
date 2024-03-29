@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Sidebar from "@/components/shared/Sidebar";
 import { useGetAllUsers } from "@/hooks/useGetAllUsers";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
