@@ -5,7 +5,9 @@ import Chat from "./Chat";
 
 
 
-export default function MessageContainer() {
+export default function MessageContainer({ user }: { user: { name: string, avatar: string, address: string } }) {
+
+
   const [messages, setMessages] = useState([
     {
       message: "Hi",
@@ -30,17 +32,22 @@ export default function MessageContainer() {
 
   return (
     <main className="w-full h-full flex flex-col gap-4 flex-1">
-      <div
-        className="flex cursor-pointer p-3 items-center gap-4 border-b border-stone-500/80 ">
-        <div className="rounded-full w-10 h-10 overflow-hidden bg-secondary">
-          <img src={`https://beige-urban-takin-227.mypinata.cloud/ipfs/`} alt={'ana'} className="w-full h-full" />
-        </div>
-        <h1>{`signor`}</h1>
-      </div>
+      {
+        user && (
+          <div
+            className="flex p-3 items-center gap-4 border-b border-stone-500/80 ">
+            <div className="rounded-full w-10 h-10 overflow-hidden bg-secondary">
+              <img src={`https://beige-urban-takin-227.mypinata.cloud/ipfs/${user.avatar}`} alt={user.name} className="w-full h-full" />
+            </div>
+            <h1>{user.name}</h1>
+          </div>
+        )
+      }
+
       <div className="flex-1 p-7 w-full h-full flex flex-col gap-4">
         <div className="w-full flex-1 flex flex-col gap-1.5 overflow-y-auto">
           {messages.map((message, index) => (
-            <Chat key={index} {...message} />
+            <Chat key={index} {...message} avatar={user?.avatar} />
           ))}
         </div>
 

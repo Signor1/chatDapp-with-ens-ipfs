@@ -1,33 +1,15 @@
-import MessageContainer from "@/components/shared/MessageContainer"
-import Sidebar from "@/components/shared/Sidebar"
-import { useWeb3ModalAccount } from "@web3modal/ethers/react"
-
 
 
 const Chat = () => {
-    const { isConnected } = useWeb3ModalAccount();
+
 
     return (
-        <div className="w-full h-full overflow-y-auto bg-stone-950 mx-auto rounded-md flex flex-col">
+        <main className="w-full h-full flex flex-col justify-center items-center gap-4 flex-1">
 
-            {
-                isConnected && (
-                    <div className="w-full h-full max-w-[1440px] overflow-y-auto bg-stone-950 mx-auto rounded-md flex">
-                        <Sidebar />
-                        <MessageContainer />
-                    </div>
-                )
-            }
-            {
-                !isConnected && (
-                    <div className="w-full h-full max-w-[1440px] flex flex-col justify-center items-center overflow-y-auto bg-stone-950 mx-auto rounded-md ">
-                        <h1 className="text-stone-100 text-4xl">Please connect your wallet</h1>
-                    </div>
-                )
-            }
+            <h1 className="text-2xl text-stone-300">No Message</h1>
+            <h3 className="text-lg text-stone-400">👈 Click on any user to start a conversation</h3>
 
-
-        </div>
+        </main>
     )
 }
 

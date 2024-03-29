@@ -13,7 +13,7 @@ export const useGetAllUsers = () => {
       .then((res) => {
         const converted = res.map((item: [string, string, string]) => ({
           name: item[0],
-          url: item[1] || "",
+          avatar: item[1] || "",
           address: item[2],
         }));
 

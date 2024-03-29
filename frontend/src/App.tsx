@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer";
+import ChatLayout from "./layout/ChatLayout";
+import ChatOpen from "./pages/ChatOpen";
 
 configWeb3Modal();
 
@@ -19,7 +21,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route element={<ChatLayout />}>
+          <Route index path="/chat" element={<Chat />} />
+          <Route index path="/chat/:address" element={<ChatOpen />} />
+        </Route>
       </Routes>
       <Footer />
       <ToastContainer />

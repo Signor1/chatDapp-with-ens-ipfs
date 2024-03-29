@@ -7,7 +7,7 @@ const sepolia = {
     name: "Sepolia",
     currency: "ETH",
     explorerUrl: "https://etherscan.io",
-    rpcUrl: import.meta.env.VITE_RPC_URL,
+    rpcUrl: import.meta.env.VITE_INFURA_RPC_URL,
 };
 
 const metadata = {

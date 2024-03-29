@@ -24,10 +24,10 @@ const Home = () => {
 
     return (
         <div className="h-[40rem] w-full bg-stone-950 flex flex-col items-center justify-center overflow-hidden rounded-md">
-            <h1 className="md:text-5xl text-4xl lg:text-7xl font-bold text-center relative z-20 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="md:text-5xl text-4xl lg:text-7xl font-bold text-center relative z-20 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text tracking-widest text-transparent">
                 Connect & Explore
             </h1>
-            <h3 className="text-xl md:text-2xl lg:text-3xl text-stone-200 font-light inter-var text-center">Experience the future of communication with ChatZone.</h3>
+            <h3 className="text-xl my-1.5 md:text-2xl lg:text-3xl text-stone-200 font-light inter-var text-center">Experience the future of communication with ChatZone.</h3>
             <div className="w-[40rem] h-40 relative">
                 {/* Gradients */}
                 <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] w-3/4 blur-sm" />
