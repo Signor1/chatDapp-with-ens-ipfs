@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SparklesCore } from "@/components/ui/Sparkle"
 import { useWeb3ModalAccount } from "@web3modal/ethers/react"
 import { useCallback, useEffect } from "react"
@@ -8,10 +9,12 @@ const Home = () => {
     const { isConnected } = useWeb3ModalAccount();
     const navigate = useNavigate();
 
-    const change = useCallback(() => {
-        if (isConnected) {
 
+    const change = useCallback(async () => {
+        if (isConnected) {
             navigate("/signup");
+        } else if (!isConnected) {
+            navigate("/");
         }
     }, [isConnected, navigate]);
 
@@ -21,10 +24,10 @@ const Home = () => {
 
     return (
         <div className="h-[40rem] w-full bg-stone-950 flex flex-col items-center justify-center overflow-hidden rounded-md">
-            <h1 className="md:text-5xl text-3xl lg:text-7xl font-bold text-center text-stone-100 relative z-20">
+            <h1 className="md:text-5xl text-4xl lg:text-7xl font-bold text-center relative z-20 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Connect & Explore
             </h1>
-            <h3 className="text-xl md:text-2xl lg:text-3xl text-stone-300 font-light inter-var text-center">Experience the future of communication with ChatZone.</h3>
+            <h3 className="text-xl md:text-2xl lg:text-3xl text-stone-200 font-light inter-var text-center">Experience the future of communication with ChatZone.</h3>
             <div className="w-[40rem] h-40 relative">
                 {/* Gradients */}
                 <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-purple-400 to-transparent h-[2px] w-3/4 blur-sm" />

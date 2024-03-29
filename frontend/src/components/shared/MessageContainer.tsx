@@ -29,23 +29,32 @@ export default function MessageContainer() {
   };
 
   return (
-    <div className="flex-1 p-7 w-full h-full flex flex-col gap-4">
-      <div className="w-full flex-1 flex flex-col gap-1.5 overflow-y-auto">
-        {messages.map((message, index) => (
-          <Chat key={index} {...message} />
-        ))}
+    <main className="w-full h-full flex flex-col gap-4 flex-1">
+      <div
+        className="flex cursor-pointer p-3 items-center gap-4 border-b border-stone-500/80 ">
+        <div className="rounded-full w-10 h-10 overflow-hidden bg-secondary">
+          <img src={`https://beige-urban-takin-227.mypinata.cloud/ipfs/`} alt={'ana'} className="w-full h-full" />
+        </div>
+        <h1>{`signor`}</h1>
       </div>
+      <div className="flex-1 p-7 w-full h-full flex flex-col gap-4">
+        <div className="w-full flex-1 flex flex-col gap-1.5 overflow-y-auto">
+          {messages.map((message, index) => (
+            <Chat key={index} {...message} />
+          ))}
+        </div>
 
-      <div className="h-12 w-full bg-secondary rounded-full flex items-center px-2">
-        <Input
-          autoComplete="false"
-          className="border-0 h-full py-4 rounded-full"
-          placeholder="Send a message"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <Button className="text-sm rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 font-semibold" onClick={handleSendMessage}>Send</Button>
+        <div className="h-12 w-full bg-secondary rounded-full flex items-center px-2">
+          <Input
+            autoComplete="false"
+            className="border-0 h-full py-4 rounded-full"
+            placeholder="Send a message"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <Button className="text-sm rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 font-semibold" onClick={handleSendMessage}>Send</Button>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import { getProposalsContract } from "@/constants/contract";
 import { readOnlyProvider } from "@/constants/provider";
+import { getENSContract } from "@/constants/contract";
 
 export const useGetAllUsers = () => {
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
-    const contract = getProposalsContract(readOnlyProvider);
+    const contract = getENSContract(readOnlyProvider);
 
     contract
       .getAllUsers()
       .then((res) => {
-        const converted = res.map((item: [string, string]) => ({
+        const converted = res.map((item: [string, string, string]) => ({
           name: item[0],
           url: item[1] || "",
+          address: item[2],
         }));
 
         setAllUsers(converted);

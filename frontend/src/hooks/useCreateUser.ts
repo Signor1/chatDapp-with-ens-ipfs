@@ -7,8 +7,8 @@ import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { isSupportedChain } from "@/util";
 import { getProvider } from "@/constants/provider";
-import { getProposalsContract } from "@/constants/contract";
 import { useNavigate } from "react-router-dom";
+import { getENSContract } from "@/constants/contract";
 
 const useCreateUser = (username: string, url: string) => {
   const { chainId } = useWeb3ModalAccount();
@@ -25,10 +25,10 @@ const useCreateUser = (username: string, url: string) => {
     const readWriteProvider = getProvider(walletProvider);
     const signer = await readWriteProvider.getSigner();
 
-    const contract = getProposalsContract(signer);
+    const contract = getENSContract(signer);
 
     try {
-      const transaction = await contract.createENS(username, url);
+      const transaction = await contract.createAccount(url, username);
 
       console.log("transaction: ", transaction);
 

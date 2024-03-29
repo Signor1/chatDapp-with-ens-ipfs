@@ -76,7 +76,11 @@ export default function Form() {
               className="w-full h-full object-cover rounded-full"
             />
           ) : (
-            <Camera className="w-16 h-16 text-muted-foreground" />
+            <span className="relative flex w-16 h-16">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gradient-to-tr from-pink-400 via-purple-400 to-cyan-400 opacity-85"></span>
+              <Camera className="w-16 h-16 relative inline-flex rounded-full text-muted-foreground" />
+            </span>
+
           )}
         </label>
 
@@ -85,7 +89,7 @@ export default function Form() {
           className="flex flex-col my-4 w-full gap-4">
           <div className="space-y-2">
             <label className="text-sm">Username</label>
-            <Input className="border border-stone-100 py-2 placeholder:text-stone-100" placeholder="Enter username"
+            <Input className="border border-stone-100 py-2 placeholder:text-stone-500" placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -93,12 +97,12 @@ export default function Form() {
 
           <div className="space-y-2">
             <label className="text-sm">IPFS url</label>
-            <Input className="border border-stone-100 py-2 placeholder:text-stone-100"
-              value={url} readOnly
+            <Input className="border border-stone-100 py-2 placeholder:text-stone-500"
+              value={url} readOnly placeholder="Select an image and await IPFS url..."
             />
           </div>
 
-          <Button type="button" disabled={isLoading} onClick={handleClick} className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
+          <Button type="button" disabled={url === ""} onClick={handleClick} className="bg-gradient-to-r disabled:cursor-not-allowed from-cyan-400 via-purple-400 to-pink-400">
             {isLoading ? (
               <>
                 <Loader2 className="animate-spin w-4 h-4 mr-2" />

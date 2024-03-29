@@ -3,7 +3,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_ensContractAddress",
+                "name": "_ensAddress",
                 "type": "address"
             }
         ],
@@ -16,70 +16,121 @@
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "sender",
+                "name": "from",
                 "type": "address"
             },
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "receiver",
+                "name": "to",
                 "type": "address"
             },
             {
                 "indexed": false,
                 "internalType": "string",
-                "name": "content",
+                "name": "message",
                 "type": "string"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
             }
         ],
         "name": "MessageSent",
         "type": "event"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "chats",
+        "inputs": [],
+        "name": "getCountOfMsg",
         "outputs": [
             {
-                "internalType": "address",
-                "name": "sender",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "receiver",
-                "type": "address"
-            },
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "to",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct Chatzone.Message[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
             {
                 "internalType": "string",
-                "name": "content",
+                "name": "_name1",
                 "type": "string"
             },
             {
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
+                "internalType": "string",
+                "name": "_name2",
+                "type": "string"
+            }
+        ],
+        "name": "getMessagesBetweenUsers",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "to",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct Chatzone.Message[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getUserMessages",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "to",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct Chatzone.Message[]",
+                "name": "",
+                "type": "tuple[]"
             }
         ],
         "stateMutability": "view",
@@ -88,42 +139,27 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_sender",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_receiver",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "_index",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "getMessage",
+        "name": "messages",
         "outputs": [
             {
                 "internalType": "address",
-                "name": "sender",
+                "name": "from",
                 "type": "address"
             },
             {
                 "internalType": "address",
-                "name": "receiver",
+                "name": "to",
                 "type": "address"
             },
             {
                 "internalType": "string",
-                "name": "content",
+                "name": "message",
                 "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timestamp",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -133,16 +169,11 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_sender",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_receiver",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "getMessagesCount",
+        "name": "msgCount",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -156,13 +187,13 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_receiver",
-                "type": "address"
+                "internalType": "string",
+                "name": "_msg",
+                "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "_content",
+                "name": "_to",
                 "type": "string"
             }
         ],

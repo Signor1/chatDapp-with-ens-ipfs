@@ -1,30 +1,37 @@
-import Footer from "@/components/shared/Footer"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Form from "@/components/shared/Form"
-import Navbar from "@/components/shared/Navbar"
+import { useCheckUser } from "@/hooks/useCheckUser";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { ZeroAddress } from "ethers";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
-    const { isConnected } = useWeb3ModalAccount();
+    const { isConnected, address } = useWeb3ModalAccount();
     const navigate = useNavigate();
 
-    const change = useCallback(() => {
-        if (!isConnected) {
+    const user: any = useCheckUser(address);
 
+
+    const change = useCallback(() => {
+        if (isConnected) {
+            if (user.address && user.address !== ZeroAddress) {
+                navigate("/chat");
+            } else {
+                navigate("/signup");
+            }
+        } else {
             navigate("/");
         }
-    }, [isConnected, navigate]);
+    }, [isConnected, navigate, user.address]);
 
     useEffect(() => {
         change();
-    }, [change, isConnected]);
+    }, [change, isConnected, user.address]);
     return (
         <div className="w-full h-full flex flex-col justify-between items-center">
-            <Navbar />
             <Form />
-            <Footer />
         </div>
     )
 }
