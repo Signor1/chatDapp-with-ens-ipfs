@@ -10,26 +10,28 @@ const useGetMessages = (from: string, to: string) => {
 
   console.log(numOfMsgs);
 
-  const trackingvoters = useCallback(() => {
+  const fetchMessages = useCallback(async () => {
+    try {
+      const contract = getChatContract(readOnlyProvider);
+      const res = await contract.getMessagesBetweenUsers(from, to);
+      const converted = res.map((item: [string, string, string]) => ({
+        from: item[0],
+        to: item[1],
+        message: item[2],
+      }));
+      setMessages(converted);
+      console.log(converted);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [from, to]);
+
+  const trackingMsgs = useCallback(() => {
     setNumOfMsgs((prevValue) => prevValue + 1);
-  }, []);
+    fetchMessages();
+  }, [fetchMessages]);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const contract = getChatContract(readOnlyProvider);
-        const res = await contract.getMessagesBetweenUsers(from, to);
-        const converted = res.map((item: [string, string, string]) => ({
-          from: item[0],
-          to: item[1],
-          message: item[2],
-        }));
-        setMessages(converted);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchMessages();
 
     const filter = {
@@ -45,13 +47,13 @@ const useGetMessages = (from: string, to: string) => {
       import.meta.env.VITE_WEB_SOCKET_RPC_URL
     );
 
-    provider.on(filter, trackingvoters);
+    provider.on(filter, trackingMsgs);
 
     return () => {
       // Perform cleanup
-      provider.off(filter, trackingvoters);
+      provider.off(filter, trackingMsgs);
     };
-  }, [from, to, trackingvoters]);
+  }, [fetchMessages, trackingMsgs]);
 
   return messages;
 };

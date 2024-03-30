@@ -18,14 +18,16 @@ export default function MessageContainer({ user }: { user: { name: string, avata
   const usersMessages = useGetMessages(currentUser?.name, user.name);
 
 
+
+
   useEffect(() => {
-    if (usersMessages && usersMessages.length > 0) {
-      const formattedMessages = usersMessages.map((msg: any) => ({
-        message: msg.message,
-        mine: msg.from === currentUser.address, // Determine if the message belongs to the current user
-      }));
-      setMessages(formattedMessages);
-    }
+
+    const formattedMessages = usersMessages.map((msg: any) => ({
+      message: msg.message,
+      mine: msg.from === currentUser.address, // Determine if the message belongs to the current user
+    }));
+    setMessages(formattedMessages);
+
   }, [currentUser.address, usersMessages]);
 
 

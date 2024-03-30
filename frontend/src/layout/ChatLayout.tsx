@@ -14,7 +14,6 @@ const ChatLayout = () => {
 
     const listOfUsers = data.filter((user: { address: string }) => user.address !== address);
 
-
     return (
         <div className="w-full h-full overflow-y-auto bg-stone-950 mx-auto rounded-md flex flex-col">
 
