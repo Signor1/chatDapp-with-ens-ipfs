@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getChatContract } from "@/constants/contract";
 import { getProvider } from "@/constants/provider";
 import { isSupportedChain } from "@/util";
 import {
@@ -9,7 +8,7 @@ import {
 import { useCallback } from "react";
 import { toast } from "react-toastify";
 
-const useSendMessage = (msg: string, to: string) => {
+const useSendMessage = (from: string, msg: string, to: string) => {
   const { chainId } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -22,33 +21,44 @@ const useSendMessage = (msg: string, to: string) => {
     const readWriteProvider = getProvider(walletProvider);
     const signer = await readWriteProvider.getSigner();
 
-    const contract = getChatContract(signer);
+    const messageTx = {
+      from: from,
+      msg: msg,
+      to: to,
+    };
 
     try {
-      const transaction = await contract.sendMessage(msg, to);
+      const signature = await signer.signMessage(JSON.stringify(messageTx));
 
-      console.log("transaction: ", transaction);
+      const response = await fetch(
+        "https://ens-contract.onrender.com/forward-message",
+        {
+          method: "POST",
+          body: JSON.stringify({ ...messageTx, signature }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      const receipt = await transaction.wait();
+      const jsonResponse = await response.json();
 
-      console.log("receipt: ", receipt);
-
-      if (receipt.status) {
-        return toast.success("Message Sent!", {
+      if (jsonResponse.success) {
+        return toast.success(jsonResponse.message, {
+          position: "top-right",
+        });
+      } else {
+        return toast.error(jsonResponse.message, {
           position: "top-right",
         });
       }
-
-      toast.error("Message not sent!", {
-        position: "top-right",
-      });
     } catch (error: any) {
       // console.error("error: ", error);
-      toast.error(`${error.message.slice(0, 20)}...`, {
+      toast.error("OOPS!! SOMETHING_WENT_WRONG", {
         position: "top-right",
       });
     }
-  }, [chainId, walletProvider, msg, to]);
+  }, [chainId, walletProvider, from, msg, to]);
 };
 
 export default useSendMessage;

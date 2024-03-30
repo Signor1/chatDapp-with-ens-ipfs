@@ -18,8 +18,6 @@ export default function MessageContainer({ user }: { user: { name: string, avata
   const usersMessages = useGetMessages(currentUser?.name, user.name);
 
 
-
-
   useEffect(() => {
 
     const formattedMessages = usersMessages.map((msg: any) => ({
@@ -34,7 +32,7 @@ export default function MessageContainer({ user }: { user: { name: string, avata
   const [newMessage, setNewMessage] = useState('');
 
 
-  const handleMessage = useSendMessage(newMessage, user.name);
+  const handleMessage = useSendMessage(currentUser.name, newMessage, user.name);
 
 
   const handleSendMessage = async () => {

@@ -20,7 +20,6 @@ const useGetMessages = (from: string, to: string) => {
         message: item[2],
       }));
       setMessages(converted);
-      console.log(converted);
     } catch (err) {
       console.error(err);
     }
