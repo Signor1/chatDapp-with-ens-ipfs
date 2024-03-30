@@ -22,7 +22,7 @@ const ChatLayout = () => {
                 isConnected && (
                     <div className="w-full h-full max-w-[1440px] overflow-y-auto bg-stone-950 mx-auto rounded-md flex">
                         <Sidebar currentUser={currentUser} listOfUsers={listOfUsers} />
-                        <Outlet />
+                        <Outlet context={currentUser} />
                     </div>
                 )
             }

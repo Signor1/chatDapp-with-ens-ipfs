@@ -1,24 +1,34 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Chat from "./Chat";
 import useSendMessage from "@/hooks/useSendMessage";
+import { useOutletContext } from "react-router-dom";
+import useGetMessages from "@/hooks/useGetMessages";
 
 
 
 export default function MessageContainer({ user }: { user: { name: string, avatar: string, address: string } }) {
 
+  const currentUser: { name: string, avatar: string, address: string } = useOutletContext();
 
-  const [messages, setMessages] = useState([
-    {
-      message: "Hi",
-      mine: true,
-    },
-    {
-      message: "Hello",
-      mine: false,
-    },
-  ]);
+  const [messages, setMessages] = useState<any[]>([]);
+
+  const usersMessages = useGetMessages(currentUser?.name, user.name);
+
+
+  useEffect(() => {
+    if (usersMessages && usersMessages.length > 0) {
+      const formattedMessages = usersMessages.map((msg: any) => ({
+        message: msg.message,
+        mine: msg.from === currentUser.address, // Determine if the message belongs to the current user
+      }));
+      setMessages(formattedMessages);
+    }
+  }, [currentUser.address, usersMessages]);
+
+
   const [newMessage, setNewMessage] = useState('');
 
 
@@ -27,8 +37,6 @@ export default function MessageContainer({ user }: { user: { name: string, avata
 
   const handleSendMessage = async () => {
     if (newMessage.trim() === '') return;
-
-    setMessages(prevMessages => [...prevMessages, { message: newMessage, mine: true }]);
 
     await handleMessage();
 
